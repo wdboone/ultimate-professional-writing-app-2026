@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+  <div class="app-layout d-flex">
+    <!-- Sidebar -->
+    <nav class="sidebar border-end">
+      <div class="sidebar-header px-3 py-3">
+        <div class="fw-bold fs-5">Writing Studio</div>
+        <div class="text-muted small">AI Engineer Edition</div>
+      </div>
+      <ul class="nav flex-column px-2">
+        <li class="nav-item"><a class="nav-link active" href="index.html">📊 Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+        <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+        <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+        <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+        <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+        <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+        <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+        <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+        <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <div class="main flex-grow-1">
+      <!-- Topbar -->
+      <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+        <div class="d-flex align-items-center gap-3">
+          <div class="fw-semibold fs-5">Dashboard</div>
+          <div class="text-muted small">Track your writing progress and jump back into practice.</div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <div class="search-wrapper">
+            <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search pages, topics, tools..." />
+          </div>
+          <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+        </div>
+      </header>
+
+      <main class="p-4">
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div class="card shadow-soft h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <div class="fw-semibold">Daily Streak</div>
+                  <span class="badge bg-primary-subtle text-primary" id="streakBadge">0 days</span>
+                </div>
+                <p class="text-muted small mb-2">Write something—anything—every day to keep your streak alive.</p>
+                <div class="progress" style="height: 6px;">
+                  <div id="streakProgress" class="progress-bar bg-primary" style="width: 0%;"></div>
+                </div>
+                <div class="small text-muted mt-2" id="streakMessage">Start your first streak today.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-soft h-100">
+              <div class="card-body">
+                <div class="fw-semibold mb-2">Weekly Word Count</div>
+                <p class="text-muted small mb-2">Total words written across all practice sections this week.</p>
+                <div class="display-6 fw-bold" id="weeklyWords">0</div>
+                <div class="small text-muted" id="weeklyWordsMessage">Aim for 2,000+ words per week.</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-soft h-100">
+              <div class="card-body">
+                <div class="fw-semibold mb-2">Prompts Completed</div>
+                <p class="text-muted small mb-2">Number of writing prompts you’ve finished.</p>
+                <div class="display-6 fw-bold" id="promptsCompleted">0</div>
+                <div class="small text-muted" id="promptsMessage">Each completed prompt sharpens your professional voice.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-lg-8">
+            <div class="card shadow-soft mb-3">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <div class="fw-semibold">Recent Daily Challenges</div>
+                  <a href="challenges.html" class="small text-decoration-none">View all</a>
+                </div>
+                <div id="recentChallenges" class="small text-muted">
+                  No challenges saved yet. Visit the Daily Challenges page to generate and save prompts.
+                </div>
+              </div>
+            </div>
+
+            <div class="card shadow-soft">
+              <div class="card-body">
+                <div class="fw-semibold mb-2">Writing Momentum</div>
+                <p class="text-muted small mb-3">A quick snapshot of your recent activity.</p>
+                <ul class="list-unstyled small mb-0" id="momentumList">
+                  <li>No activity yet. Start with a prompt on the Writing Practice page.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card shadow-soft mb-3">
+              <div class="card-body">
+                <div class="fw-semibold mb-2">Quick Actions</div>
+                <div class="d-grid gap-2">
+                  <a href="writing.html" class="btn btn-primary btn-sm">Continue Writing Practice</a>
+                  <a href="email.html" class="btn btn-outline-secondary btn-sm">Draft a Professional Email</a>
+                  <a href="resume.html" class="btn btn-outline-secondary btn-sm">Refine Your Tech Resume</a>
+                  <a href="tools.html" class="btn btn-outline-secondary btn-sm">Use Writing Tools</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="card shadow-soft">
+              <div class="card-body">
+                <div class="fw-semibold mb-2">Today’s Nudge</div>
+                <p class="small text-muted mb-2" id="nudgeText">
+                  Write a 150–200 word executive summary explaining why your organization should invest in an internal LLM assistant.
+                </p>
+                <a href="challenges.html" class="small text-decoration-none">Generate a new nudge</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Writing Practice – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link active" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Writing Practice</div>
+        <div class="text-muted small">Deepen your professional voice with targeted prompts.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search prompts, topics..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <!-- Prompt 1 -->
+      <div class="card shadow-soft mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="fw-semibold">Product Spec: Internal LLM Assistant</div>
+            <button class="btn btn-sm btn-outline-secondary" onclick="exportSectionPDF('p1_section')">Export as PDF</button>
+          </div>
+          <p class="text-muted small mb-3">Audience: engineering leaders + non-technical executives.</p>
+
+          <div class="accordion" id="p1_section">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p1_prompt">
+                  Prompt
+                </button>
+              </h2>
+              <div id="p1_prompt" class="accordion-collapse collapse">
+                <div class="accordion-body small">
+                  You are an AI Engineer proposing an internal LLM-based assistant for a mid-sized company. Write a one-page product overview that explains the assistant’s purpose, target users, core capabilities, and success metrics.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p1_vocab">
+                  Professional Vocabulary
+                </button>
+              </h2>
+              <div id="p1_vocab" class="accordion-collapse collapse">
+                <div class="accordion-body small word-bank">
+                  <span onclick="insertWord('p1_text','operational efficiency')">operational efficiency</span>
+                  <span onclick="insertWord('p1_text','knowledge retrieval')">knowledge retrieval</span>
+                  <span onclick="insertWord('p1_text','context-aware')">context-aware</span>
+                  <span onclick="insertWord('p1_text','guardrails')">guardrails</span>
+                  <span onclick="insertWord('p1_text','hallucination mitigation')">hallucination mitigation</span>
+                  <span onclick="insertWord('p1_text','role-based access control')">role-based access control</span>
+                  <span onclick="insertWord('p1_text','governance')">governance</span>
+                  <span onclick="insertWord('p1_text','observability')">observability</span>
+                  <span onclick="insertWord('p1_text','user adoption')">user adoption</span>
+                  <span onclick="insertWord('p1_text','time-to-value')">time-to-value</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#p1_example">
+                  Example Paragraph
+                </button>
+              </h2>
+              <div id="p1_example" class="accordion-collapse collapse">
+                <div class="accordion-body small">
+                  The proposed assistant is a context-aware, enterprise-grade LLM interface that streamlines knowledge retrieval for both technical and non-technical employees. By integrating with existing systems of record—such as the ticketing platform, code repository, and policy documentation—the assistant reduces time-to-value for common workflows like incident triage and onboarding. Guardrails, including role-based access control and hallucination mitigation strategies, ensure that responses remain accurate, auditable, and aligned with internal governance standards.
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#p1_response">
+                  Your Response
+                </button>
+              </h2>
+              <div id="p1_response" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  <textarea id="p1_text" class="form-control mb-2" placeholder="Draft your product overview here..."></textarea>
+                  <div class="d-flex gap-2 mb-2">
+                    <button class="btn btn-primary btn-sm" onclick="analyzeWriting('p1_text','p1_feedback')">Analyze My Writing</button>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="rewriteText('p1_text','p1_feedback','executive')">Rewrite in Executive Tone</button>
+                  </div>
+                  <div id="p1_feedback" class="feedback small"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- You can duplicate the above card for more prompts (MLOps postmortem, ethics memo, AI in education, etc.) -->
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/analyzer.js"></script>
+<script src="assets/js/rewrite.js"></script>
+<script src="assets/js/pdf.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Email Builder – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link active" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Professional Email Builder</div>
+        <div class="text-muted small">Craft concise, executive-ready emails for AI roles.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search templates..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Template Settings</div>
+              <div class="mb-2">
+                <label class="form-label small">Email Type</label>
+                <select id="emailType" class="form-select form-select-sm" onchange="updateEmailTemplate()">
+                  <option value="intro">Intro to Hiring Manager (Prompt Engineer)</option>
+                  <option value="followup">Post-Interview Follow-Up</option>
+                  <option value="network">Networking / Informational Chat</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Tone</label>
+                <select id="emailTone" class="form-select form-select-sm" onchange="updateEmailTemplate()">
+                  <option value="professional">Professional</option>
+                  <option value="executive">Executive</option>
+                  <option value="warm">Warm</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Subject Line</label>
+                <input id="emailSubject" class="form-control form-control-sm" />
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Greeting</label>
+                <input id="emailGreeting" class="form-control form-control-sm" value="Hi [Name]," />
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Signature</label>
+                <textarea id="emailSignature" class="form-control form-control-sm" rows="2">Best regards,
+[Your Name]</textarea>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="updateEmailTemplate()">Generate Email</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="fw-semibold">Email Preview</div>
+                <button class="btn btn-outline-secondary btn-sm" onclick="copyEmail()">Copy</button>
+              </div>
+              <div class="small text-muted mb-2">You can refine this further in your email client.</div>
+              <div class="border rounded p-3 bg-light-subtle small" id="emailPreview">
+                Select a template and click “Generate Email”.
+              </div>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Analysis</div>
+              <button class="btn btn-outline-primary btn-sm mb-2" onclick="analyzeEmail()">Analyze Tone & Clarity</button>
+              <div id="emailFeedback" class="feedback small"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/analyzer.js"></script>
+<script>
+function updateEmailTemplate(){
+  const type=document.getElementById('emailType').value;
+  const tone=document.getElementById('emailTone').value;
+  const subj=document.getElementById('emailSubject');
+  const greet=document.getElementById('emailGreeting').value||'Hi [Name],';
+  const sig=document.getElementById('emailSignature').value||'Best regards,\n[Your Name]';
+  let body='';
+  if(type==='intro'){
+    subj.value=subj.value||'Exploring Remote Prompt Engineer Opportunities';
+    body=""+greet+"\n\nI’m an AI Engineer with graduate training in education and applied artificial intelligence, currently focused on designing prompt strategies and evaluation frameworks for LLM-powered products. I’m particularly interested in how your team is using generative AI to build user-centric experiences at scale.\n\nI’d welcome the chance to briefly connect and explore where my background in applied AI and instructional design could add value to your roadmap.\n\n"+sig;
+  }else if(type==='followup'){
+    subj.value=subj.value||'Thank you for the conversation';
+    body=""+greet+"\n\nThank you again for the opportunity to discuss the Prompt Engineer role. Our conversation reinforced my excitement about the team’s focus on evaluation frameworks, responsible AI, and cross-functional collaboration.\n\nIf there’s any additional context or examples I can share—particularly around my work in applied AI and education—please let me know.\n\n"+sig;
+  }else{
+    subj.value=subj.value||'Exploring AI & LLM Collaboration Opportunities';
+    body=""+greet+"\n\nI’m an AI Engineer with a background in education and applied artificial intelligence, and I’ve been following your work at the intersection of AI and product strategy. I’d love to learn more about your current initiatives and share how I’ve been applying LLMs to learning, knowledge management, and internal tooling.\n\nWould you be open to a brief 20-minute conversation over the next week?\n\n"+sig;
+  }
+  if(tone==='executive'){body=body.replace('I’d love','I would welcome').replace('brief','short');}
+  if(tone==='warm'){body=body.replace('I would welcome','I’d really appreciate');}
+  document.getElementById('emailPreview').textContent=body;
+}
+function copyEmail(){
+  const text=document.getElementById('emailPreview').textContent;
+  navigator.clipboard.writeText(text);
+}
+function analyzeEmail(){
+  const text=document.getElementById('emailPreview').textContent;
+  const fb=document.getElementById('emailFeedback');
+  if(!text.trim()){fb.textContent='Generate an email first.';return;}
+  const words=text.split(/\s+/).length;
+  fb.textContent="Approx. "+words+" words.\nTone: professional and concise. Consider adding one concrete example of impact to strengthen credibility.";
+}
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Resume Builder – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link active" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Resume Builder</div>
+        <div class="text-muted small">Shape a resume that speaks to AI & ML roles.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search resume tips..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="row g-3">
+        <div class="col-lg-5">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Role & Level</div>
+              <div class="mb-2">
+                <label class="form-label small">Target Role</label>
+                <select id="resumeRole" class="form-select form-select-sm" onchange="updateResumeTemplate()">
+                  <option value="prompt">Remote AI Prompt Engineer</option>
+                  <option value="ml">Machine Learning Engineer</option>
+                  <option value="ai">AI Engineer (Generalist)</option>
+                </select>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Experience Level</label>
+                <select id="resumeLevel" class="form-select form-select-sm" onchange="updateResumeTemplate()">
+                  <option value="mid">Mid-level</option>
+                  <option value="senior">Senior</option>
+                </select>
+              </div>
+              <div class="small text-muted">
+                Tip: Use the pattern <code>Action + Context + Impact</code> for each bullet.
+              </div>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Export</div>
+              <button class="btn btn-primary btn-sm" onclick="exportSectionPDF('resumePreview')">Export Resume Section as PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Resume Preview</div>
+              <div id="resumePreview" class="small">
+                <!-- Filled by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/pdf.js"></script>
+<script>
+function updateResumeTemplate(){
+  const role=document.getElementById('resumeRole').value;
+  const level=document.getElementById('resumeLevel').value;
+  const box=document.getElementById('resumePreview');
+  let title='',bullets=[];
+  if(role==='prompt'){
+    title=(level==='senior'?'Senior Remote AI Prompt Engineer':'Remote AI Prompt Engineer');
+    bullets=[
+      'Designed and iterated prompts, system messages, and tool-calling strategies for LLM-powered features across multiple products.',
+      'Collaborated with PMs, designers, and engineers to translate user journeys into robust conversational flows.',
+      'Built and maintained evaluation frameworks to measure hallucination rate, task success, and user satisfaction.',
+      'Documented prompt patterns, failure modes, and best practices for cross-functional teams.'
+    ];
+  }else if(role==='ml'){
+    title=(level==='senior'?'Senior Machine Learning Engineer':'Machine Learning Engineer');
+    bullets=[
+      'Designed, trained, and deployed ML models for recommendation, ranking, or NLP use cases.',
+      'Implemented MLOps best practices, including CI/CD for models, feature stores, and monitoring.',
+      'Partnered with data engineering to ensure reliable, well-documented data pipelines.',
+      'Collaborated with stakeholders to define success metrics and run controlled experiments.'
+    ];
+  }else{
+    title=(level==='senior'?'Senior AI Engineer':'AI Engineer');
+    bullets=[
+      'Prototyped and productionized AI features using LLMs and traditional ML techniques.',
+      'Integrated AI services with existing microservices and front-end applications.',
+      'Established evaluation and observability practices for AI components.',
+      'Advised product and leadership on AI roadmap, trade-offs, and feasibility.'
+    ];
+  }
+  box.innerHTML="<strong>"+title+"</strong><br><br><strong>Professional Summary</strong><br><em>AI Engineer with graduate training in education and applied artificial intelligence, specializing in "+
+    (role==='prompt'?'prompt design, LLM evaluation, and user-centric GenAI experiences.':
+     role==='ml'?'end-to-end ML systems, MLOps, and experimentation at scale.':
+     'LLM applications, ML systems, and cross-functional AI delivery.')+
+    " Experienced collaborating with product, design, and engineering to ship production-grade AI features.</em><br><br><strong>Experience Highlights</strong><ul>"+bullets.map(b=>"<li>"+b+"</li>").join("")+"</ul>";
+}
+updateResumeTemplate();
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Writing Tools – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link active" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Writing Tools</div>
+        <div class="text-muted small">Refine tone, clarity, and structure.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search tools..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Reading Level Estimator</div>
+              <textarea id="read_text" class="form-control mb-2" rows="5" placeholder="Paste text to estimate reading level..."></textarea>
+              <button class="btn btn-primary btn-sm" onclick="estimateReading()">Estimate</button>
+              <div id="read_feedback" class="feedback small mt-2"></div>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Writing Timer</div>
+              <button class="btn btn-outline-primary btn-sm mb-2" onclick="startTimer()">Start 10-minute Sprint</button>
+              <div id="timer_display" class="feedback small"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Tone Rewriter</div>
+              <textarea id="tone_text" class="form-control mb-2" rows="5" placeholder="Paste text to rewrite..."></textarea>
+              <div class="d-flex gap-2 mb-2">
+                <select id="tone_style" class="form-select form-select-sm">
+                  <option value="formal">Formal</option>
+                  <option value="executive">Executive</option>
+                  <option value="concise">Concise</option>
+                  <option value="technical">Technical</option>
+                  <option value="persuasive">Persuasive</option>
+                  <option value="plain">Plain-language</option>
+                  <option value="senior">Senior AI Engineer</option>
+                </select>
+                <button class="btn btn-primary btn-sm" onclick="rewriteTone()">Rewrite</button>
+              </div>
+              <div id="tone_feedback" class="feedback small"></div>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Export to PDF</div>
+              <p class="small text-muted mb-2">Paste any text below and export it as a simple PDF.</p>
+              <textarea id="pdf_text" class="form-control mb-2" rows="4" placeholder="Paste text to export..."></textarea>
+              <button class="btn btn-outline-secondary btn-sm" onclick="exportTextPDF('pdf_text')">Export as PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/analyzer.js"></script>
+<script src="assets/js/rewrite.js"></script>
+<script src="assets/js/pdf.js"></script>
+<script src="assets/js/challenges.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Challenges – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link active" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Daily Writing Challenges</div>
+        <div class="text-muted small">Generate targeted prompts to stretch your thinking.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search challenges..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="card shadow-soft mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="fw-semibold">Generate Challenge</div>
+            <button class="btn btn-outline-secondary btn-sm" onclick="generateChallenge()">Generate Another</button>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Category</label>
+            <select id="challengeCategory" class="form-select form-select-sm" onchange="generateChallenge()">
+              <option value="ai">AI Engineering</option>
+              <option value="ml">Machine Learning</option>
+              <option value="ethics">Ethics & Governance</option>
+              <option value="comm">Technical Communication</option>
+              <option value="product">Product Thinking</option>
+              <option value="leadership">Leadership</option>
+              <option value="education">Education + AI</option>
+            </select>
+          </div>
+          <div id="challengeCard" class="border rounded p-3 bg-light-subtle small">
+            Click “Generate Another” to create a challenge.
+          </div>
+          <button class="btn btn-primary btn-sm mt-2" onclick="saveChallenge()">Save to Dashboard</button>
+          <div id="challengeStatus" class="small text-muted mt-1"></div>
+        </div>
+      </div>
+
+      <div class="card shadow-soft">
+        <div class="card-body">
+          <div class="fw-semibold mb-2">Saved Challenges</div>
+          <div id="savedChallenges" class="small text-muted">
+            No challenges saved yet.
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/challenges.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Articles – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link active" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">AI Articles Library</div>
+        <div class="text-muted small">Curated reading to deepen your technical and strategic understanding.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search articles..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="card shadow-soft mb-3">
+        <div class="card-body">
+          <div class="fw-semibold mb-2">Foundational AI & ML</div>
+          <ul class="small mb-0">
+            <li><a href="https://www.deeplearning.ai/the-batch/" target="_blank">The Batch – DeepLearning.AI newsletter</a></li>
+            <li><a href="https://openai.com/research" target="_blank">OpenAI Research blog</a></li>
+            <li><a href="https://ai.googleblog.com/" target="_blank">Google AI Blog</a></li>
+            <li><a href="https://www.deepmind.com/research" target="_blank">Google DeepMind research</a></li>
+            <li><a href="https://engineering.atspotify.com/tag/machine-learning/" target="_blank">Spotify Engineering – Machine Learning</a></li>
+            <li><a href="https://netflixtechblog.com/tagged/machine-learning" target="_blank">Netflix Tech Blog – ML</a></li>
+            <li><a href="https://aws.amazon.com/blogs/machine-learning/" target="_blank">AWS Machine Learning Blog</a></li>
+            <li><a href="https://cloud.google.com/blog/topics/machine-learning-ai" target="_blank">Google Cloud AI & ML Blog</a></li>
+            <li><a href="https://azure.microsoft.com/en-us/blog/topics/ai-machine-learning/" target="_blank">Microsoft Azure AI & ML Blog</a></li>
+            <li><a href="https://ai.facebook.com/blog/" target="_blank">Meta AI Blog</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-soft mb-3">
+        <div class="card-body">
+          <div class="fw-semibold mb-2">LLMs, Prompt Engineering, and GenAI</div>
+          <ul class="small mb-0">
+            <li><a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank">OpenAI Prompt Engineering Guide</a></li>
+            <li><a href="https://www.promptingguide.ai/" target="_blank">Prompting Guide</a></li>
+            <li><a href="https://lilianweng.github.io/posts/2023-06-23-agent/" target="_blank">Lilian Weng – LLM-powered Autonomous Agents</a></li>
+            <li><a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/" target="_blank">Lilian Weng – Prompt Engineering overview</a></li>
+            <li><a href="https://arxiv.org/abs/2302.11382" target="_blank">A Survey of Large Language Models</a></li>
+            <li><a href="https://arxiv.org/abs/2401.18058" target="_blank">Prompt Engineering: A Survey</a></li>
+            <li><a href="https://www.anthropic.com/index" target="_blank">Anthropic – Research & blog</a></li>
+            <li><a href="https://huggingface.co/blog" target="_blank">Hugging Face Blog</a></li>
+            <li><a href="https://www.mosaicml.com/blog" target="_blank">MosaicML Blog</a></li>
+            <li><a href="https://cohere.com/blog" target="_blank">Cohere AI Blog</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-soft">
+        <div class="card-body">
+          <div class="fw-semibold mb-2">Responsible AI, MLOps, and Production</div>
+          <ul class="small mb-0">
+            <li><a href="https://ai.google/responsibility/" target="_blank">Google – Responsible AI</a></li>
+            <li><a href="https://www.microsoft.com/en-us/ai/responsible-ai" target="_blank">Microsoft – Responsible AI principles</a></li>
+            <li><a href="https://huggingface.co/docs/evaluate/index" target="_blank">Hugging Face – Evaluation docs</a></li>
+            <li><a href="https://ml-ops.org/" target="_blank">MLOps Community</a></li>
+            <li><a href="https://evidentlyai.com/blog" target="_blank">Evidently AI – ML monitoring & evaluation</a></li>
+            <li><a href="https://arxiv.org/list/cs.LG/recent" target="_blank">arXiv – Machine Learning (recent)</a></li>
+            <li><a href="https://arxiv.org/list/cs.CL/recent" target="_blank">arXiv – Computation and Language (recent)</a></li>
+            <li><a href="https://distill.pub/" target="_blank">Distill</a></li>
+            <li><a href="https://www.fast.ai/posts.html" target="_blank">fast.ai blog</a></li>
+            <li><a href="https://gradientflow.com/" target="_blank">Gradient Flow – AI & data newsletter</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Certifications – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link active" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Certifications & Learning Paths</div>
+        <div class="text-muted small">Signal depth in AI, ML, and cloud to hiring managers.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search certifications..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">AI / ML & GenAI</div>
+              <ul class="small mb-0">
+                <li><a href="https://www.deeplearning.ai/courses/" target="_blank">DeepLearning.AI specialization tracks</a></li>
+                <li><a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">Coursera – Machine Learning Specializations</a></li>
+                <li><a href="https://www.coursera.org/specializations/generative-ai" target="_blank">Coursera – Generative AI Specializations</a></li>
+                <li><a href="https://www.udacity.com/school-of-ai" target="_blank">Udacity – School of AI nanodegrees</a></li>
+                <li><a href="https://www.datacamp.com/tracks/machine-learning-scientist" target="_blank">DataCamp – ML Scientist track</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Recommended Focus for You</div>
+              <p class="small text-muted mb-2">
+                With your M.Ed and M.S. in Applied AI, emphasize certifications that show production readiness and cloud fluency.
+              </p>
+              <ul class="small mb-0">
+                <li>One cloud ML certification (AWS, Azure, or GCP).</li>
+                <li>One GenAI or LLM-focused specialization.</li>
+                <li>Optional: MLOps or DevOps certification to show end-to-end ownership.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Cloud & Production</div>
+              <ul class="small mb-0">
+                <li><a href="https://aws.amazon.com/certification/certified-machine-learning-specialty/" target="_blank">AWS Certified Machine Learning – Specialty</a></li>
+                <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer/" target="_blank">Microsoft Certified: Azure AI Engineer Associate</a></li>
+                <li><a href="https://cloud.google.com/certification/machine-learning-engineer" target="_blank">Google Cloud Professional Machine Learning Engineer</a></li>
+                <li><a href="https://www.hashicorp.com/certification" target="_blank">HashiCorp certifications</a></li>
+                <li><a href="https://kubernetes.io/training/" target="_blank">Kubernetes training & certifications</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">How to Position Certifications</div>
+              <p class="small text-muted mb-0">
+                In your resume and LinkedIn, frame certifications as evidence of your ability to ship production-grade AI systems, not just pass exams. Pair each certification with one concrete project or outcome that demonstrates applied skill.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interview Prep – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link active" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Interview Prep</div>
+        <div class="text-muted small">Practice responses for AI Prompt Engineer and related roles.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search questions..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Sample Questions & Model Answers</div>
+              <div class="accordion" id="qaAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q1">
+                      1. How do you approach prompt engineering for a new use case?
+                    </button>
+                  </h2>
+                  <div id="q1" class="accordion-collapse collapse">
+                    <div class="accordion-body small">
+                      I start by clarifying the user journey and the decision the model is supposed to support. From there, I design a small set of candidate prompts that vary along a few dimensions—level of instruction, examples, and constraints—and I evaluate them against a representative dataset. I track both quantitative metrics, such as task success rate and hallucination frequency, and qualitative feedback from domain experts. Once we converge on a baseline, I formalize a prompt library, add automated regression tests, and document failure modes so that future iterations are systematic rather than ad hoc.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q2">
+                      2. Describe a time you balanced model performance with ethical or educational concerns.
+                    </button>
+                  </h2>
+                  <div id="q2" class="accordion-collapse collapse">
+                    <div class="accordion-body small">
+                      In an education-focused project, we found that a highly creative LLM configuration produced engaging explanations but occasionally suggested shortcuts that undermined academic integrity. I worked with instructional designers to define guardrails that prioritized conceptual understanding over direct answers. We adjusted prompts to emphasize scaffolding and hints, added content filters, and introduced a feedback loop where teachers could flag problematic outputs. This preserved learning outcomes while keeping the experience engaging and aligned with institutional policies.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#q3">
+                      3. How would you measure success in your first 90 days as a remote Prompt Engineer?
+                    </button>
+                  </h2>
+                  <div id="q3" class="accordion-collapse collapse">
+                    <div class="accordion-body small">
+                      In the first 90 days, I would aim to deeply understand the product domain, ship at least one prompt or evaluation improvement into production, and contribute to shared documentation. Success metrics could include reduction in escalation tickets related to AI features, improved task success rates on key flows, and positive feedback from partner teams. For a remote role, I’d also look at communication indicators—clear async updates, well-structured design docs, and proactive collaboration with PMs and engineers.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Practice Your Answer</div>
+              <textarea id="interview_text" class="form-control mb-2" rows="6" placeholder="Draft your response here..."></textarea>
+              <div class="d-flex gap-2 mb-2">
+                <button class="btn btn-primary btn-sm" onclick="analyzeWriting('interview_text','interview_feedback')">Analyze</button>
+                <button class="btn btn-outline-secondary btn-sm" onclick="rewriteText('interview_text','interview_feedback','executive')">Rewrite in Executive Tone</button>
+              </div>
+              <div id="interview_feedback" class="feedback small"></div>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Advice for Remote Prompt Engineer Roles</div>
+              <ul class="small mb-0">
+                <li>Frame your M.Ed as domain expertise in learning and behavior, and your M.S. in Applied AI as your technical engine.</li>
+                <li>Showcase 3–5 flagship projects that combine LLMs with real user workflows (education, onboarding, knowledge management).</li>
+                <li>Highlight your ability to write clearly for executives, engineers, and non-technical stakeholders.</li>
+                <li>Target companies that already operate remote-first and have multiple GenAI initiatives.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/analyzer.js"></script>
+<script src="assets/js/rewrite.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Settings – Corporate Writing Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="theme-light">
+<div class="app-layout d-flex">
+  <nav class="sidebar border-end">
+    <div class="sidebar-header px-3 py-3">
+      <div class="fw-bold fs-5">Writing Studio</div>
+      <div class="text-muted small">AI Engineer Edition</div>
+    </div>
+    <ul class="nav flex-column px-2">
+      <li class="nav-item"><a class="nav-link" href="index.html">📊 Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="writing.html">✍️ Writing Practice</a></li>
+      <li class="nav-item"><a class="nav-link" href="email.html">📧 Email Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="resume.html">📄 Resume Builder</a></li>
+      <li class="nav-item"><a class="nav-link" href="tools.html">🧰 Writing Tools</a></li>
+      <li class="nav-item"><a class="nav-link" href="challenges.html">🔥 Daily Challenges</a></li>
+      <li class="nav-item"><a class="nav-link" href="articles.html">📚 AI Articles</a></li>
+      <li class="nav-item"><a class="nav-link" href="certs.html">🎓 Certifications</a></li>
+      <li class="nav-item"><a class="nav-link" href="interview.html">🎤 Interview Prep</a></li>
+      <li class="nav-item"><a class="nav-link active" href="settings.html">⚙️ Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="main flex-grow-1">
+    <header class="topbar d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white">
+      <div>
+        <div class="fw-semibold fs-5">Settings</div>
+        <div class="text-muted small">Customize your writing environment.</div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <input id="globalSearch" type="search" class="form-control form-control-sm" placeholder="Search settings..." />
+        <button id="themeToggle" class="btn btn-sm btn-outline-secondary">🌞</button>
+      </div>
+    </header>
+
+    <main class="p-4">
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card shadow-soft mb-3">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Theme</div>
+              <p class="small text-muted mb-2">Toggle between light and dark mode. This setting is saved in your browser.</p>
+              <button class="btn btn-primary btn-sm" onclick="toggleTheme()">Toggle Theme</button>
+            </div>
+          </div>
+
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Writing Goals</div>
+              <div class="mb-2">
+                <label class="form-label small">Weekly Word Goal</label>
+                <input id="goalWords" type="number" class="form-control form-control-sm" placeholder="e.g., 2000" />
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Prompts per Week</label>
+                <input id="goalPrompts" type="number" class="form-control form-control-sm" placeholder="e.g., 5" />
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="saveGoals()">Save Goals</button>
+              <div id="goalStatus" class="small text-muted mt-1"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card shadow-soft">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Reset Progress</div>
+              <p class="small text-muted mb-2">This will clear your streak, word counts, and saved challenges from this browser.</p>
+              <button class="btn btn-outline-danger btn-sm" onclick="resetProgress()">Reset All Progress</button>
+              <div id="resetStatus" class="small text-muted mt-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script src="assets/js/challenges.js"></script>
+<script>
+function saveGoals(){
+  const w=document.getElementById('goalWords').value||'0';
+  const p=document.getElementById('goalPrompts').value||'0';
+  localStorage.setItem('goalWords',w);
+  localStorage.setItem('goalPrompts',p);
+  document.getElementById('goalStatus').textContent='Goals saved.';
+}
+function resetProgress(){
+  localStorage.removeItem('streakDays');
+  localStorage.removeItem('weeklyWords');
+  localStorage.removeItem('promptsCompleted');
+  localStorage.removeItem('savedChallenges');
+  document.getElementById('resetStatus').textContent='Progress reset for this browser.';
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('goalWords').value=localStorage.getItem('goalWords')||'';
+  document.getElementById('goalPrompts').value=localStorage.getItem('goalPrompts')||'';
+});
+</script>
+</body>
+</html>
+body{font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f7fb;color:#111827;}
+.app-layout{min-height:100vh;}
+.sidebar{width:240px;background:#ffffff;}
+.sidebar-header{border-bottom:1px solid #e5e7eb;}
+.nav-link{font-size:.9rem;color:#4b5563;padding:.45rem .75rem;border-radius:.5rem;margin-bottom:.15rem;}
+.nav-link:hover{background:#e5e7eb;color:#111827;}
+.nav-link.active{background:#e0e7ff;color:#1d4ed8;font-weight:600;}
+.main{background:#f5f7fb;}
+.topbar{position:sticky;top:0;z-index:10;}
+.shadow-soft{box-shadow:0 4px 12px rgba(15,23,42,.04);border-radius:.75rem;border:1px solid #e5e7eb;}
+.feedback{background:#f1f5f9;border-radius:.5rem;border-left:4px solid #2563eb;padding:.5rem .75rem;}
+.word-bank span{display:inline-block;background:#e5e7eb;border-radius:.5rem;padding:.15rem .45rem;margin:.1rem;font-size:.8rem;cursor:pointer;}
+.word-bank span:hover{background:#cbd5e1;}
+.theme-dark body,.theme-dark{background:#020617;color:#e5e7eb;}
+.theme-dark .sidebar{background:#020617;border-color:#1f2937;}
+.theme-dark .nav-link{color:#9ca3af;}
+.theme-dark .nav-link.active{background:#1d4ed8;color:#e5e7eb;}
+.theme-dark .main{background:#020617;}
+.theme-dark .card{background:#020617;border-color:#1f2937;}
+.theme-dark .topbar{background:#020617;border-color:#1f2937;}
+.theme-dark .feedback{background:#0f172a;border-left-color:#38bdf8;}
+.theme-dark input,.theme-dark textarea,.theme-dark select{background:#020617;color:#e5e7eb;border-color:#1f2937;}
+(function(){
+  const body=document.body;
+  const savedTheme=localStorage.getItem('theme')||'light';
+  if(savedTheme==='dark'){body.classList.remove('theme-light');body.classList.add('theme-dark');}
+  const btn=document.getElementById('themeToggle');
+  if(btn){
+    btn.textContent=body.classList.contains('theme-dark')?'🌙':'🌞';
+    btn.addEventListener('click',toggleTheme);
+  }
+  const search=document.getElementById('globalSearch');
+  if(search){
+    search.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){
+        const q=e.target.value.trim().toLowerCase();
+        if(!q)return;
+        alert('Search is conceptual here: use it as a reminder to look for “‘+q+'” across pages.');
+      }
+    });
+  }
+})();
+function toggleTheme(){
+  const body=document.body;
+  if(body.classList.contains('theme-dark')){
+    body.classList.remove('theme-dark');body.classList.add('theme-light');localStorage.setItem('theme','light');
+  }else{
+    body.classList.remove('theme-light');body.classList.add('theme-dark');localStorage.setItem('theme','dark');
+  }
+  const btn=document.getElementById('themeToggle');if(btn)btn.textContent=body.classList.contains('theme-dark')?'🌙':'🌞';
+}
+function insertWord(textareaId,word){
+  const ta=document.getElementById(textareaId);if(!ta)return;
+  const start=ta.selectionStart||ta.value.length;
+  const end=ta.selectionEnd||ta.value.length;
+  const before=ta.value.substring(0,start);
+  const after=ta.value.substring(end);
+  ta.value=before+(before.endsWith(' ')?'':' ')+word+' '+after;
+  ta.focus();
+}
+function analyzeWriting(textId,feedbackId){
+  const ta=document.getElementById(textId),fb=document.getElementById(feedbackId);
+  if(!ta||!fb)return;
+  const text=ta.value.trim();
+  if(!text){fb.textContent='Write a draft first, then analyze.';return;}
+  const words=text.split(/\s+/).filter(w=>w).length;
+  const sentences=text.split(/[.!?]+/).filter(s=>s.trim().length>0);
+  const avg=sentences.length?words/sentences.length:words;
+  const informal=["stuff","things","a lot","kinda","sort of","really","very","cool","awesome"];
+  const found=informal.filter(w=>text.toLowerCase().includes(w));
+  let toneHint=found.length>0?"Tone includes informal language ("+found.join(", ")+"). Consider more precise wording.":"Tone appears mostly professional. You can still tighten phrasing by removing filler.";
+  let lengthHint=words<150?"Relatively short ("+words+" words). For essays, aim for 200–400 words unless brevity is required.":words>600?"Quite long ("+words+" words). Consider tightening to highlight your main pillars.":"Length ("+words+" words) is reasonable for a focused professional response.";
+  let sentenceHint=avg>28?"Average sentence length is "+avg.toFixed(1)+" words; some sentences may be hard to follow.":"Average sentence length is "+avg.toFixed(1)+" words, which is generally readable.";
+  const longSentences=sentences.filter(s=>s.split(/\s+/).length>30).length;
+  if(longSentences>0)sentenceHint+=" You have "+longSentences+" very long sentence(s); consider splitting them.";
+  fb.textContent="Word count: "+words+"\nSentences: "+sentences.length+"\nAverage sentence length: "+avg.toFixed(1)+"\n\n"+toneHint+"\n"+lengthHint+"\n"+sentenceHint+"\n\nCheck structure: clear thesis, 2–4 body pillars, and a concrete recommendation or next step.";
+}
+function estimateReading(){
+  const text=document.getElementById('read_text').value.trim();
+  const fb=document.getElementById('read_feedback');
+  if(!text){fb.textContent='Paste text first.';return;}
+  const words=text.split(/\s+/).length;
+  const sentences=text.split(/[.!?]+/).filter(s=>s.trim().length>0).length||1;
+  const syllables=(text.toLowerCase().match(/[aeiouy]+/g)||[]).length||1;
+  const grade=0.39*(words/sentences)+11.8*(syllables/words)-15.59;
+  fb.textContent="Estimated reading level: Grade "+grade.toFixed(1)+" (Flesch–Kincaid approximation).";
+}
+let timerInterval;
+function startTimer(){
+  let time=600;
+  const display=document.getElementById('timer_display');
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    const m=Math.floor(time/60),s=time%60;
+    display.textContent="Time remaining: "+m+":"+(s<10?"0"+s:s);
+    time--;
+    if(time<0){clearInterval(timerInterval);display.textContent="Sprint complete. Review and refine your writing."; }
+  },1000);
+}
+function rewriteText(textId,feedbackId,style){
+  const ta=document.getElementById(textId),fb=document.getElementById(feedbackId);
+  if(!ta||!fb)return;
+  const text=ta.value.trim();
+  if(!text){fb.textContent='Write or paste text first.';return;}
+  fb.textContent="Suggested "+style+" rewrite (conceptual):\n\n[Use this as a prompt to revise your own text in that tone. Focus on:\n- clearer structure\n- more precise verbs\n- fewer fillers\n- audience-aware framing.]";
+}
+function rewriteTone(){
+  const ta=document.getElementById('tone_text'),fb=document.getElementById('tone_feedback'),style=document.getElementById('tone_style').value;
+  if(!ta||!fb)return;
+  const text=ta.value.trim();
+  if(!text){fb.textContent='Paste text first.';return;}
+  fb.textContent="Rewritten in "+style+" tone (conceptual guide):\n\n[Imagine your text rewritten with:\n- "+(style==='formal'?'formal register, no slang, precise terminology.':
+    style==='executive'?'high-level framing, business impact, concise sentences.':
+    style==='concise'?'shorter sentences, removed redundancy, direct language.':
+    style==='technical'?'domain-specific vocabulary, explicit assumptions, clear definitions.':
+    style==='persuasive'?'benefit-focused framing, clear call to action, confident tone.':
+    style==='plain'?'simple language, minimal jargon, short sentences.':
+    'senior-level framing, ownership language, strategic perspective.')+"\nUse this as a checklist while you manually revise your draft.]";
+}
+function exportSectionPDF(sectionId){
+  const el=document.getElementById(sectionId);
+  if(!el){alert('Section not found.');return;}
+  const text=el.innerText||el.textContent;
+  exportRawTextPDF(text);
+}
+function exportTextPDF(textId){
+  const el=document.getElementById(textId);
+  if(!el){alert('Text area not found.');return;}
+  const text=el.value||el.innerText||el.textContent;
+  exportRawTextPDF(text);
+}
+function exportRawTextPDF(text){
+  if(!text.trim()){alert('Nothing to export.');return;}
+  const blob=new Blob([text],{type:'application/pdf'}); // not a true PDF, but many viewers will still open; for real PDF use html2pdf.js
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='writing-export.pdf';a.click();
+  URL.revokeObjectURL(url);
+}
+(function(){
+  const streakEl=document.getElementById('streakBadge');
+  const streakBar=document.getElementById('streakProgress');
+  const streakMsg=document.getElementById('streakMessage');
+  const weeklyWordsEl=document.getElementById('weeklyWords');
+  const weeklyMsg=document.getElementById('weeklyWordsMessage');
+  const promptsEl=document.getElementById('promptsCompleted');
+  const momentum=document.getElementById('momentumList');
+  const recentChallenges=document.getElementById('recentChallenges');
+  const saved=JSON.parse(localStorage.getItem('savedChallenges')||'[]');
+  if(streakEl){
+    const days=parseInt(localStorage.getItem('streakDays')||'0',10);
+    streakEl.textContent=days+" day"+(days===1?'':'s');
+    if(streakBar)streakBar.style.width=Math.min(days*10,100)+"%";
+    if(streakMsg)streakMsg.textContent=days>0?"Nice work. Keep your streak going.":"Start your first streak today.";
+  }
+  if(weeklyWordsEl){
+    const words=parseInt(localStorage.getItem('weeklyWords')||'0',10);
+    weeklyWordsEl.textContent=words;
+    weeklyMsg.textContent=words>=2000?"You’ve hit a strong weekly volume.":"Aim for at least 2,000 words this week.";
+  }
+  if(promptsEl){
+    const prompts=parseInt(localStorage.getItem('promptsCompleted')||'0',10);
+    promptsEl.textContent=prompts;
+  }
+  if(momentum){
+    if(parseInt(localStorage.getItem('weeklyWords')||'0',10)>0){
+      momentum.innerHTML="<li>You’ve written this week. Keep building momentum with another prompt.</li>";
+    }
+  }
+  if(recentChallenges){
+    if(saved.length===0){recentChallenges.textContent="No challenges saved yet. Generate and save some on the Daily Challenges page.";}
+    else{
+      recentChallenges.innerHTML=saved.slice(-3).map(c=>"<div class='mb-1'>• "+c.text+"</div>").join("");
+    }
+  }
+})();
+const challengeSets={
+  ai:[
+    "Write a 200-word executive summary explaining why your company should adopt retrieval-augmented generation for internal search.",
+    "Describe a realistic failure mode of an LLM-powered assistant in production and how you would mitigate it.",
+    "Draft a one-page overview of an internal AI platform that standardizes prompt patterns, evaluation, and governance."
+  ],
+  ml:[
+    "Explain to a non-technical stakeholder why data drift matters for a recommendation model.",
+    "Write a postmortem for a model that silently degraded over three days before detection.",
+    "Describe how you would design an experiment to compare two ranking models."
+  ],
+  ethics:[
+    "Draft a memo to a Chief Legal Officer outlining privacy risks of call summarization with LLMs.",
+    "Explain how you would incorporate bias assessment into an LLM deployment pipeline.",
+    "Write a short policy for responsible use of generative AI in customer-facing products."
+  ],
+  comm:[
+    "Rewrite a dense technical paragraph so that a non-technical executive can understand it.",
+    "Write a 150-word status update about an AI project for a leadership audience.",
+    "Explain the concept of hallucination mitigation to a cross-functional team."
+  ],
+  product:[
+    "Draft a product requirement for an LLM-powered onboarding assistant for new employees.",
+    "Describe how you would prioritize AI features for an internal knowledge base.",
+    "Write a short pitch for an AI feature that reduces support ticket volume."
+  ],
+  leadership:[
+    "Write a message to your team about adopting AI tools while maintaining quality and accountability.",
+    "Describe how you would align stakeholders around an AI roadmap with competing priorities.",
+    "Draft a brief note to leadership about the risks of moving too slowly on AI adoption."
+  ],
+  education:[
+    "Propose a district-level AI initiative that supports teachers with lesson planning and formative assessment.",
+    "Explain how you would design an LLM-powered tutor that preserves academic integrity.",
+    "Write a short concept note on using AI to support differentiated learning in large classrooms."
+  ]
+};
+function generateChallenge(){
+  const cat=document.getElementById('challengeCategory').value;
+  const list=challengeSets[cat]||challengeSets.ai;
+  const text=list[Math.floor(Math.random()*list.length)];
+  const card=document.getElementById('challengeCard');
+  if(card)card.textContent=text;
+}
+function saveChallenge(){
+  const card=document.getElementById('challengeCard');
+  const status=document.getElementById('challengeStatus');
+  if(!card||!card.textContent.trim()){status.textContent='Generate a challenge first.';return;}
+  const saved=JSON.parse(localStorage.getItem('savedChallenges')||'[]');
+  saved.push({text:card.textContent,ts:Date.now()});
+  localStorage.setItem('savedChallenges',JSON.stringify(saved));
+  status.textContent='Challenge saved.';
+  const list=document.getElementById('savedChallenges');
+  if(list)list.innerHTML=saved.map(c=>"<div class='mb-1'>• "+c.text+"</div>").join("");
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  const list=document.getElementById('savedChallenges');
+  if(list){
+    const saved=JSON.parse(localStorage.getItem('savedChallenges')||'[]');
+    if(saved.length===0)list.textContent='No challenges saved yet.';
+    else list.innerHTML=saved.map(c=>"<div class='mb-1'>• "+c.text+"</div>").join("");
+  }
+});
